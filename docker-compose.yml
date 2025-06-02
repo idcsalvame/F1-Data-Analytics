@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  F1Data:
+    image: postgres:16
+    container_name: F1Data
+    environment:
+      POSTGRES_USER: f1user
+      POSTGRES_PASSWORD: f1pass
+      POSTGRES_DB: f1db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  devcontainer:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspace
+    depends_on:
+      - F1Data
+    command: sleep infinity
+
+volumes:
+  pgdata:

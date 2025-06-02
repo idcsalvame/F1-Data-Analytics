@@ -1,0 +1,22 @@
+# Core data and analysis
+fastf1
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn  # Optional, if you plan to do any data modeling/feature analysis
+
+# PostgreSQL interaction
+psycopg2-binary
+
+# Jupyter (if you want notebooks support in the container)
+jupyterlab
+
+# VS Code Python tools (optional but helpful in dev containers)
+ipykernel
+debugpy
+
+# Linting/formatting (if you'd like to enforce good style)
+black
+flake8
+isort

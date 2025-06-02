@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+.venv/
+*.env
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Docker
+**/__pycache__/
+docker-compose.override.yml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & credentials
+data/
+*.db
+*.log
+
+# OS
+.DS_Store
+
+# Power BI
+*.pbix
