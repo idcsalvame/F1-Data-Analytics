@@ -1,6 +1,6 @@
 # 🏎️ F1 Data Analytics Project
 
-This project explores and analyzes Formula 1 race data using Python and the [FastF1](https://github.com/theOehrly/Fast-F1) library, PostgreSQL for structured data storage, and Power BI for data visualization. The development environment is fully containerized using Docker and Dev Containers in VS Code for clean and reproducible development.
+This project explores and analyzes Formula 1 race data using Python and the [FastF1](https://github.com/theOehrly/Fast-F1) library, [Jolpica-F1](https://github.com/jolpica/jolpica-f1) for enriched metadata, PostgreSQL for structured data storage, and Power BI for data visualization. The development environment is fully containerized using Docker and Dev Containers in VS Code for clean and reproducible development.
 
 ---
 
@@ -8,6 +8,7 @@ This project explores and analyzes Formula 1 race data using Python and the [Fas
 
 - Practice and improve my skills in **Python**, **SQL**, and **Power BI**
 - Learn how to ingest and work with real-world Formula 1 data via FastF1
+- Enrich race session data with **driver**, **constructor**, and **schedule** metadata from Jolpica-F1
 - Build structured and queryable data models using **PostgreSQL**
 - Create insightful **Power BI dashboards** connected directly to the data
 - Develop the project in a **reproducible Docker environment** for easy reuse and sharing
@@ -16,14 +17,15 @@ This project explores and analyzes Formula 1 race data using Python and the [Fas
 
 ## 🧱 Tech Stack
 
-| Tool                   | Role                          |
-|------------------------|-------------------------------|
-| Python                 | Data collection & processing  |
-| FastF1                 | F1 data acquisition via API   |
-| PostgreSQL             | Relational database storage   |
-| Power BI               | Data visualization/dashboard  |
-| Docker & Compose       | Containerized environment     |
-| VS Code + DevContainer | Development environment setup |
+| Tool                   | Role                                  |
+|------------------------|---------------------------------------|
+| Python                 | Data collection & processing          |
+| FastF1                 | F1 telemetry & lap-by-lap data        |
+| Jolpica-F1             | Driver/constructor/schedule metadata  |
+| PostgreSQL             | Relational database storage           |
+| Power BI               | Data visualization/dashboard          |
+| Docker & Compose       | Containerized environment             |
+| VS Code + DevContainer | Development environment setup         |
 
 ---
 
@@ -36,15 +38,16 @@ f1-data-analytics/
 │   ├── devcontainer.json
 │   └── Dockerfile
 │
-├── docker/                # Docker-related configuration files
-│   └── db/                # PostgreSQL container config & init
-│       ├── init.sql
-│       └── [optional PostgreSQL configs]
+├── db/                    # PostgreSQL queries
+│   ├── schema_v1.sql
+│   └── [optional PostgreSQL configs]
 │
 ├── data/                  # Raw or processed data artifacts
 ├── notebooks/             # Jupyter notebooks for data exploration
+│   ├── ingest_fastf1.ipynb
+│   └── ingest_jolpica.ipynb
 ├── src/                   # Python scripts (ETL, helpers, etc.)
-│   └── ingest.py
+│   └── [other utilities]
 │
 ├── dashboards/            # Power BI files (.pbix)
 ├── requirements.txt       # Python dependencies
@@ -60,7 +63,7 @@ f1-data-analytics/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/f1-data-analytics.git
+git clone https://github.com/idcsalvame/f1-data-analytics.git
 cd f1-data-analytics
 ```
 
@@ -93,10 +96,11 @@ pip install -r requirements.txt
 
 ## 🔄 Data Flow Overview
 
-1. **FastF1** retrieves session, lap, and telemetry data.
-2. **Python scripts** (in `src/`) transform the data as needed.
-3. Data is loaded into **PostgreSQL**, using `psycopg2-binary`.
-4. **Power BI** connects via ODBC/Npgsql to build dashboards.
+1. **FastF1** retrieves race session, lap, and telemetry data.
+2. **Jolpica-F1** fetches driver, constructor, and race schedule metadata.
+3. **Python scripts** (in `src/`) transform and normalize data as needed.
+4. Data is staged and loaded into **PostgreSQL**.
+5. **Power BI** connects via ODBC/Npgsql to visualize the results.
 
 ---
 
@@ -131,6 +135,7 @@ Once the database has data:
 * Race pace overviews
 * Driver telemetry overlays
 * Pit strategy breakdowns
+* Driver and constructor season summaries
 
 Dashboards will be stored in the `dashboards/` folder.
 
@@ -140,8 +145,9 @@ Dashboards will be stored in the `dashboards/` folder.
 
 * [x] Set up VS Code Dev Container and Docker environment
 * [x] Set up PostgreSQL container with init SQL
+* [x] Evaluate Jolpica-F1 and include for metadata ingestion
 * [ ] Create schema for F1 data
-* [ ] Write data ingestion scripts using FastF1
+* [ ] Write data ingestion scripts using FastF1 and Jolpica-F1
 * [ ] Run exploratory data analysis via notebooks
 * [ ] Design and export Power BI dashboards
 * [ ] Finalize and polish GitHub repo for portfolio
@@ -151,8 +157,8 @@ Dashboards will be stored in the `dashboards/` folder.
 ## 🧠 Key Learnings
 
 * Setting up a reproducible container-based workflow
-* Working with motorsport telemetry and timing data
-* Designing a structured relational database for real-world data
+* Working with motorsport telemetry and metadata
+* Designing a structured relational database for real-world analytics
 * Building polished visual insights using Power BI
 
 ---

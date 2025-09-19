@@ -20,3 +20,6 @@ debugpy
 black
 flake8
 isort
+
+# APIs
+requests

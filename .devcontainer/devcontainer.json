@@ -8,8 +8,20 @@
   },
   "extensions": [
     "ms-python.python",
+    "ms-python.debugpy",
     "ms-python.vscode-pylance",
-    "ms-toolsai.jupyter"
+    "ms-toolsai.jupyter",
+    "mechatroner.rainbow-csv",
+    "ms-toolsai.datawrangler",
+    "ms-vscode-remote.remote-containers",
+    "ms-ossdata.vscode-pgsql",
+    "cweijan.vscode-mysql-client2"
   ],
-  "postCreateCommand": "pip install -r requirements.txt"
+  "mounts": [
+    "source=${localWorkspaceFolder}/notebooks,target=/workspace/notebooks,type=bind",
+    "source=${localWorkspaceFolder}/sql,target=/workspace/sql,type=bind"
+  ],
+  "forwardPorts": [8888, 3306],
+  "postCreateCommand": "pip install -r requirements.txt",
+  "remoteUser": "root"
 }
